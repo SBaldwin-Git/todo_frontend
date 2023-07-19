@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoList from "../TodoList/TodoList";
 
 function App() {
@@ -7,8 +7,20 @@ function App() {
   const [todos, setTodos] = useState([{ todo: "hello" }, { todo: "bye" }]);
   const [inputValue, setInputValue] = useState("");
 
-  // create setTodos function
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
+  async function fetchTodos() {
+    let response = await fetch("http://localhost:3005/api/todos", {
+      method: "GET",
+    });
+
+    let data = await response.json();
+    console.log(data.payload[0].description);
+  }
+
+  // create setTodos function
   function handleSubmit(e) {
     e.preventDefault();
     console.log("clicked");
@@ -21,21 +33,23 @@ function App() {
   }
 
   return (
-      <div className="App">
-        <h1>Todo Frontend</h1>
-        <h2>Todo Name</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            className="inputBox"
-          />
-          <button colorScheme='blue' type="submit">Submit</button>
-        </form>
+    <div className="App">
+      <h1>Todo Frontend</h1>
+      <h2>Todo Name</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          className="inputBox"
+        />
+        <button type="submit">
+          Submit
+        </button>
+      </form>
 
-        <TodoList todos={todos} />
-      </div>
+      <TodoList todos={todos} />
+    </div>
   );
 }
 
