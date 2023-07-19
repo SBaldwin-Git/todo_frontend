@@ -4,15 +4,13 @@ import TodoList from "../TodoList/TodoList";
 
 function App() {
   // create use state for todo components
-  const [todos, setTodos] = useState([{ todo: "hello" }, { todo: "bye" }]);
+  const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   // create use effect to fetch todos
-  useEffect(() =>
-  {
+  useEffect(() => {
     fetchTodos();
   }, []);
-
 
   async function fetchTodos() {
     let response = await fetch("http://localhost:3005/api/todos", {
@@ -25,9 +23,22 @@ function App() {
   }
 
   // create setTodos function
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setTodos([...todos, { todo: inputValue }]);
+
+    const response = await fetch("http://localhost:3005/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ description: inputValue }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    fetchTodos();
     setInputValue("");
   }
 
