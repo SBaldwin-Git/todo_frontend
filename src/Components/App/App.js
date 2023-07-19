@@ -7,9 +7,12 @@ function App() {
   const [todos, setTodos] = useState([{ todo: "hello" }, { todo: "bye" }]);
   const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
+  // create use effect to fetch todos
+  useEffect(() =>
+  {
     fetchTodos();
   }, []);
+  
 
   async function fetchTodos() {
     let response = await fetch("http://localhost:3005/api/todos", {
@@ -17,7 +20,8 @@ function App() {
     });
 
     let data = await response.json();
-    console.log(data.payload[0].description);
+    const newTodos = data.payload.map((todo) => ({ todo: todo.description }));
+    setTodos([...todos, ...newTodos]);
   }
 
   // create setTodos function
@@ -43,9 +47,7 @@ function App() {
           onChange={handleInputChange}
           className="inputBox"
         />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
 
       <TodoList todos={todos} />
