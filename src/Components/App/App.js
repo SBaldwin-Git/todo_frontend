@@ -17,9 +17,14 @@ function App() {
       method: "GET",
     });
 
+    // This code works, however it creates duplicates of the todos
+    // let data = await response.json();
+    // const newTodos = data.payload.map((todo) => ({ todo: todo.description }));
+    // setTodos([...todos, ...newTodos]);
+
     let data = await response.json();
     const newTodos = data.payload.map((todo) => ({ todo: todo.description }));
-    setTodos([...todos, ...newTodos]);
+    setTodos(newTodos); // Replace existing todos with fetched todos
   }
 
   // create setTodos function
