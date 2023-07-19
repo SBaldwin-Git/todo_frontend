@@ -12,7 +12,7 @@ function App() {
   {
     fetchTodos();
   }, []);
-  
+
 
   async function fetchTodos() {
     let response = await fetch("http://localhost:3005/api/todos", {
@@ -27,7 +27,6 @@ function App() {
   // create setTodos function
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("clicked");
     setTodos([...todos, { todo: inputValue }]);
     setInputValue("");
   }
