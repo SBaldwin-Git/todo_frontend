@@ -14,7 +14,7 @@ function App() {
 
   async function fetchTodos() {
     let response = await fetch(
-      "http://fullstack-learning-todo-backend.netlify.app/api/todos",
+      "https://learning-todo-backend-48fe7cf7d592.herokuapp.com/api/todos",
       {
         method: "GET",
       }
@@ -35,7 +35,7 @@ function App() {
     e.preventDefault();
 
     const response = await fetch(
-      "http://fullstack-learning-todo-backend.netlify.app/api/todos",
+      "https://learning-todo-backend-48fe7cf7d592.herokuapp.com/api/todos",
       {
         method: "POST",
         headers: {
