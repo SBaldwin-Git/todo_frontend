@@ -13,9 +13,12 @@ function App() {
   }, []);
 
   async function fetchTodos() {
-    let response = await fetch("http://localhost:3005/api/todos", {
-      method: "GET",
-    });
+    let response = await fetch(
+      "http://fullstack-learning-todo-backend.netlify.app/api/todos",
+      {
+        method: "GET",
+      }
+    );
 
     // This code works, however it creates duplicates of the todos
     // let data = await response.json();
@@ -31,13 +34,16 @@ function App() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:3005/api/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ description: inputValue }),
-    });
+    const response = await fetch(
+      "http://fullstack-learning-todo-backend.netlify.app/api/todos",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ description: inputValue }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
