@@ -17,6 +17,9 @@ function App() {
       "https://learning-todo-backend-48fe7cf7d592.herokuapp.com/api/todos",
       {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
 
